@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DynamoDBClientTest.cs" />
+    <Compile Include="CloudWatchClientTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

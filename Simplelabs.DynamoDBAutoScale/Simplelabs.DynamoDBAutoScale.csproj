@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AWS\CloudWatchClient.cs" />
     <Compile Include="AWS\DynamoDBClient.cs" />
     <Compile Include="Configuration\AWSSettings.cs" />
     <Compile Include="Configuration\CManager.cs" />

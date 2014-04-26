@@ -52,7 +52,7 @@ namespace Simplelabs.DynamoDBAutoScale.Test
         {
             var cliente = new DynamoDBClient();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 var attributes = new Dictionary<string, Amazon.DynamoDBv2.Model.AttributeValue>();
                 attributes.Add("ID Tabla", new AttributeValue() { S = Guid.NewGuid().ToString() });
@@ -67,18 +67,16 @@ namespace Simplelabs.DynamoDBAutoScale.Test
         [TestMethod]
         public void PutItem3()
         {
-            Parallel.For(0, 500, new ParallelOptions() { MaxDegreeOfParallelism = 4 }, (i) =>
+            var cliente = new DynamoDBClient();
+            Parallel.For(0, 1000, new ParallelOptions() { MaxDegreeOfParallelism = 4 }, (i) =>
             {
-                using (var cliente = new DynamoDBClient())
-                {
-                    var attributes = new Dictionary<string, Amazon.DynamoDBv2.Model.AttributeValue>();
-                    attributes.Add("ID Tabla", new AttributeValue() { S = Guid.NewGuid().ToString() });
-                    attributes.Add("Nombre", new AttributeValue() { S = "Pedro" + i });
-                    attributes.Add("Apellido", new AttributeValue() { S = "Perez" + i });
-                    attributes.Add("FechaNacimiento", new AttributeValue() { S = DateTime.Now.ToString() });
-                    attributes.Add("Sueldo", new AttributeValue() { N = (10023444.230 / (i + 1)).ToString(CultureInfo.InvariantCulture) });
-                    var p = cliente.PutItem("TestTable", attributes);
-                }
+                var attributes = new Dictionary<string, Amazon.DynamoDBv2.Model.AttributeValue>();
+                attributes.Add("ID Tabla", new AttributeValue() { S = Guid.NewGuid().ToString() });
+                attributes.Add("Nombre", new AttributeValue() { S = "Pedro" + i });
+                attributes.Add("Apellido", new AttributeValue() { S = "Perez" + i });
+                attributes.Add("FechaNacimiento", new AttributeValue() { S = DateTime.Now.ToString() });
+                attributes.Add("Sueldo", new AttributeValue() { N = (10023444.230 / (i + 1)).ToString(CultureInfo.InvariantCulture) });
+                var p = cliente.PutItem("TestTable", attributes);
             });
         }
     }
